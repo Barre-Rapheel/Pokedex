@@ -1,27 +1,33 @@
 import React from 'react';
 
 interface NavBarProps {
-  onPrevious: () => void;  // Fonction appelée au clic sur "Précédent"
-  onNext: () => void;      // Fonction appelée au clic sur "Suivant"
-  showPrevious: boolean;   // Condition pour afficher le bouton "Précédent"
-  showNext: boolean;       // Condition pour afficher le bouton "Suivant"
+  pokemonList: { name: string; imgSrc?: string }[];
+  setPokemonIndex: (index: number) => void;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ onPrevious, onNext, showPrevious, showNext }) => {
+function NavBar({ pokemonList, setPokemonIndex }: NavBarProps) {
   return (
-    <div>
-      {/* Bouton Précédent affiché uniquement si showPrevious est vrai */}
-      {showPrevious && (
-        <button onClick={onPrevious}>Précédent</button>
-      )}
-
-      {/* Bouton Suivant affiché uniquement si showNext est vrai */}
-      {showNext && (
-        <button onClick={onNext}>Suivant</button>
-      )}
-    </div>
+    <nav>
+      {pokemonList.map((pokemon, index) => (
+        <button
+          key={pokemon.name}
+          onClick={() => {
+            setPokemonIndex(index); // Met à jour l'index du Pokémon
+            // Affiche l'alerte si le Pokémon est Pikachu
+            if (pokemon.name.toLowerCase() === "pikachu") {
+              alert("pika pikachu !!!");
+            }
+          }}
+        >
+          {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+        </button>
+      ))}
+    </nav>
   );
-};
+}
 
 export default NavBar;
+
+
+
 

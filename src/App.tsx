@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import PokemonCard from './components/PokemonCard';
+import NavBar from './components/NavBar';
 
 const pokemonList = [
   {
@@ -31,26 +32,23 @@ const pokemonList = [
 function App() {
   const [pokemonIndex, setPokemonIndex] = useState(0);
 
+  // Afficher une alerte lors du premier rendu de l'application
+  useEffect(() => {
+    alert("hello pokemon trainer :)");
+  }, []); // Le tableau vide [] assure que cet effet ne se déclenche qu'une seule fois
+
   return (
     <div>
-      <nav>
-        {pokemonList.map((pokemon, index) => (
-          <button 
-            key={pokemon.name}   // Utilisation de pokemon.name comme key
-            onClick={() => setPokemonIndex(index)}  // Gestionnaire onClick pour mettre à jour pokemonIndex
-          >
-            {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-          </button>
-        ))}
-      </nav>
-      
-      {/* Affichage du Pokémon sélectionné */}
+      {/* Passer pokemonList et setPokemonIndex au composant NavBar */}
+      <NavBar pokemonList={pokemonList} setPokemonIndex={setPokemonIndex} />
       <PokemonCard pokemon={pokemonList[pokemonIndex]} />
     </div>
   );
 }
 
 export default App;
+
+
 
 
   
